@@ -1,0 +1,14 @@
+{
+  "name": "nanokontrolstudio",
+  "version": "2.0.0",
+  "description": "Control surface scripts for Bitwig, for the nanoKONTROL Studio",
+  "main": "nanoKONTROLStudio.control.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Soaria / Kayateia",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
