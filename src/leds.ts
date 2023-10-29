@@ -9,8 +9,6 @@
 import { CC } from './cc';
 import { fillArray } from './utils';
 
-export declare function sendChannelController(status: number, cc: number, value: number): void;
-
 export class LEDs {
   pendingState: boolean[] = fillArray(false, 8);
   outputState: boolean[] = fillArray(false, 8);

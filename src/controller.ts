@@ -18,6 +18,7 @@ host.defineMidiPorts(1, 1);
 
 import { CC } from './cc';
 import { Host } from './host';
+import { JogWheel } from './jog';
 import { LEDs } from './leds';
 import { Mode } from './mode';
 import { SYSEX } from './sysex';
@@ -29,12 +30,14 @@ export class Controller {
   transportStatus: TransportStatus;
   mode: Mode;
   leds: LEDs;
+  jogWheel: JogWheel;
 
   constructor() {
     this.transportStatus = new TransportStatus();
     this.host = new Host(this.transportStatus);
     this.leds = new LEDs();
     this.mode = new Mode(this.host, this.leds, this.transportStatus);
+    this.jogWheel = new JogWheel(this.host);
 
     host.getMidiInPort(0).setMidiCallback(
       (status, data1, data2) => this.onMidi(status, data1, data2)
@@ -74,6 +77,15 @@ export class Controller {
     case CC.REC:
       this.transportStatus.recPressed = val > 0;
       break;
+    }
+
+    if (cc === CC.JOG_WHEEL_DEC) {
+      this.jogWheel.onJogEvent(-1);
+      return;
+    }
+    if (cc === CC.JOG_WHEEL_INC) {
+      this.jogWheel.onJogEvent(1);
+      return;
     }
 
     if (

@@ -29,6 +29,10 @@ export class CC {
   static PREV_MARKER = 56;
   static NEXT_MARKER = 57;
 
+  // This must be configured using the Korg editor app.
+  static JOG_WHEEL_DEC = 85;
+  static JOG_WHEEL_INC = 83;
+
   // These are non-contiguous for some reason.
   static SLIDERS = [2, 3, 4, 5, 6, 8, 9, 12];
 
@@ -40,7 +44,7 @@ export class CC {
   static ALL: number[] = [
     [CC.CYCLE, CC.REW, CC.FF, CC.STOP, CC.PLAY, CC.REC,
       CC.PREV_TRACK, CC.NEXT_TRACK, CC.SET, CC.PREV_MARKER,
-      CC.NEXT_MARKER],
+      CC.NEXT_MARKER, CC.JOG_WHEEL_DEC, CC.JOG_WHEEL_INC],
     CC.SLIDERS,
     CC.KNOBS,
     CC.SOLOS,
