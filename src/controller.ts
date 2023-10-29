@@ -40,7 +40,10 @@ export class Controller {
     this.jogWheel = new JogWheel(this.host);
 
     host.getMidiInPort(0).setMidiCallback(
-      (status, data1, data2) => this.onMidi(status, data1, data2)
+      (status, data1, data2) => {
+        this.onMidi(status, data1, data2);
+        this.leds.flush();
+      }
     );
 
     SYSEX.goNative();
@@ -242,7 +245,9 @@ global.init = function init() {
   controller = new Controller();
 };
 
-global.flush = function flush() {};
+global.flush = function flush() {
+  controller.leds.flush();
+};
 
 global.exit = function exit() {
   controller.exit();
