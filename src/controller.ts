@@ -37,7 +37,7 @@ export class Controller {
     this.host = new Host(this.transportStatus);
     this.leds = new LEDs();
     this.mode = new Mode(this.host, this.leds, this.transportStatus);
-    this.jogWheel = new JogWheel(this.host);
+    this.jogWheel = new JogWheel(this.host, this.transportStatus);
 
     host.getMidiInPort(0).setMidiCallback(
       (status, data1, data2) => {

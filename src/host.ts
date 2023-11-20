@@ -6,6 +6,7 @@
 
 import { Params } from './params';
 import { TransportStatus } from './transport';
+// import { keepalive } from './utils';
 
 // Models the connection to the Bitwig host.
 
@@ -31,7 +32,12 @@ export class Host {
   init() {
     this.allIndicationsOff();
     this.setupObservers();
-    host.scheduleTask(() => this.blinkTimer(), [], 200);
+    host.scheduleTask(() => {
+      this.blinkTimer();
+
+      // This doesn't work to keep the screen saver away. =_=
+      // keepalive();
+    }, [], 200);
   }
 
   shutdown() {

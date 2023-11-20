@@ -3,6 +3,7 @@
 // Licence for Soaria / Kayateia changes: MIT
 
 import { Host } from './host';
+import { TransportStatus } from './transport';
 import { log } from './utils';
 
 // The default jog wheel mode for the Studio just sends a linear position
@@ -14,6 +15,7 @@ import { log } from './utils';
 export class JogWheel {
   constructor(
     private host: Host,
+    private transportStatus: TransportStatus,
   ) {
     //this.resetValue(64);
   }
@@ -24,11 +26,16 @@ export class JogWheel {
   } */
 
   onJogEvent(value: number) {
-    log(`Jog event ${value}`);
+    const numerator = this.transportStatus.setPressed
+      ? 1
+      : 4; // this.host.transport.timeSignature().getNumerator().getAsInt();
+    let curPos = this.host.transport.getPosition().get();
+    curPos = Math.floor(curPos / numerator) * numerator;
+    log(`Jog event ${value} / ${numerator}`);
     if (value < 0) {
-      this.host.transport.incPosition(-1, true);
+      this.host.transport.setPosition(curPos - numerator);
     } else {
-      this.host.transport.incPosition(1, true);
+      this.host.transport.setPosition(curPos + numerator);
     }
     // this.resetValue(64);
   }

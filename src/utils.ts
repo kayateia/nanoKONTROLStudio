@@ -6,6 +6,11 @@
 
 // Utility functions.
 
+const config = {
+  enableLogging: true,
+  enableKeepalive: true,
+};
+
 export function fillArray<T>(initValue: T, count: number): T[] {
   const result: T[] = [];
   for (let i=0; i<count; i++) {
@@ -15,6 +20,16 @@ export function fillArray<T>(initValue: T, count: number): T[] {
   return result;
 }
 
+export function keepalive() {
+  if (config.enableKeepalive) {
+    // This has no meaning, it's just to keep the controller from going
+    // into the distracting screen saver mode.
+    sendChannelController(176, 127, 0);
+  }
+}
+
 export function log(msg: string) {
-  println(msg);
+  if (config.enableLogging) {
+    println(msg);
+  }
 }
