@@ -37,9 +37,10 @@ export class CC {
   static SLIDERS = [2, 3, 4, 5, 6, 8, 9, 12];
 
   static KNOBS = [13, 14, 15, 16, 17, 18, 19, 20];
-  static SOLOS = [29, 30, 31, 32, 33, 34, 35, 36, 37];
+  static SOLOS = [29, 30, 31, 33, 34, 35, 36, 37];
   static MUTES = [21, 22, 23, 24, 25, 26, 27, 28];
   static RECS = [38, 39, 40, 41, 42, 43, 44, 45];
+  static SELS = [46, 47, 48, 49, 50, 51, 52, 53];
 
   static ALL: number[] = [
     [CC.CYCLE, CC.REW, CC.FF, CC.STOP, CC.PLAY, CC.REC,
@@ -50,5 +51,6 @@ export class CC {
     CC.SOLOS,
     CC.MUTES,
     CC.RECS,
+    CC.SELS,
   ].reduce((prev, next) => prev.concat(next), []);
 }

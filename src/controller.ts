@@ -154,6 +154,12 @@ export class Controller {
       return;
     }
 
+    const selIndex = CC.SELS.indexOf(cc);
+    if (selIndex >= 0) {
+      this.mode.activeHandler.selButton(selIndex);
+      return;
+    }
+
     // Everything else.
     switch (cc) {
     case CC.PLAY:

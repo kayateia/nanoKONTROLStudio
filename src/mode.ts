@@ -72,6 +72,7 @@ export abstract class ModeHandler {
   abstract soloButton(index: number): void;
   abstract muteButton(index: number): void;
   abstract recButton(index: number): void;
+  abstract selButton(index: number): void;
   abstract prevTrackButton(): void;
   abstract nextTrackButton(): void;
   abstract prevMarkerButton(): void;
@@ -85,6 +86,9 @@ export abstract class ModeHandler {
     // this.leds.setOutput(CC.CYCLE, activePage == mixerPage ? 127 : 0);
   }
 }
+
+declare const DeviceType: typeof API.DeviceType;
+declare const ChainLocation: typeof API.ChainLocation;
 
 export class DeviceMode extends ModeHandler {
   constructor(
@@ -126,20 +130,23 @@ export class DeviceMode extends ModeHandler {
   
   recButton() {
   }
-  
+
+  selButton() {
+  }
+
   prevTrackButton() {
-    if (this.transportStatus.setPressed) {
+    if (!this.transportStatus.setPressed) {
       // This doesn't appear to be in the typings.
-      (this.host.primaryDevice as any).switchToDevice(API.DeviceType.ANY, API.ChainLocation.PREVIOUS);
+      (this.host.primaryDevice as any).switchToDevice(DeviceType.ANY, ChainLocation.PREVIOUS);
     } else {
       this.host.cursorTrack.selectPrevious();
     }
   }
   
   nextTrackButton() {
-    if (this.transportStatus.setPressed) {
+    if (!this.transportStatus.setPressed) {
       // This doesn't appear to be in the typings.
-      (this.host.primaryDevice as any).switchToDevice(API.DeviceType.ANY, API.ChainLocation.NEXT);
+      (this.host.primaryDevice as any).switchToDevice(DeviceType.ANY, ChainLocation.NEXT);
     } else {
       this.host.cursorTrack.selectNext();
     }
@@ -222,6 +229,11 @@ export class MixerMode extends ModeHandler {
   
   recButton(index: number) {
     this.host.trackBank.getTrack(index).getArm().toggle();
+  }
+
+  selButton(index: number) {
+    // this.host.trackBank.getTrack(index).isActivated().set(true);
+    this.host.cursorTrack.selectChannel(this.host.trackBank.getTrack(index));
   }
   
   prevTrackButton() {

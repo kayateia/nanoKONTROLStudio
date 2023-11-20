@@ -26,7 +26,7 @@ export class JogWheel {
   } */
 
   onJogEvent(value: number) {
-    const numerator = this.transportStatus.setPressed
+    /*const numerator = this.transportStatus.setPressed
       ? 1
       : 4; // this.host.transport.timeSignature().getNumerator().getAsInt();
     let curPos = this.host.transport.getPosition().get();
@@ -37,6 +37,11 @@ export class JogWheel {
     } else {
       this.host.transport.setPosition(curPos + numerator);
     }
-    // this.resetValue(64);
+    // this.resetValue(64); */
+    if (value < 0) {
+      this.host.transport.rewind();
+    } else {
+      this.host.transport.fastForward();
+    }
   }
 }
